@@ -18,4 +18,4 @@ To build it, run:
 
 Then to run it:
 
-    ./shell
+    ./date

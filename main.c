@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "shellparser.h"
-#include "shellscanner.h"
+#include "dateparser.h"
+#include "datescanner.h"
 
 void* ParseAlloc(void* (*allocProc)(size_t));
 void* Parse(void*, int, const char*);
@@ -14,17 +14,17 @@ int main(int argc, char** argv) {
     yyset_in(stdin, scanner);
 
     // Set up the parser
-    void* shellParser = ParseAlloc(malloc);
+    void* dateParser = ParseAlloc(malloc);
 
     // Do it!
     printf("> ");
     int lexCode;
     do {
         lexCode = yylex(scanner);
-        Parse(shellParser, lexCode, yyget_text(scanner));
+        Parse(dateParser, lexCode, yyget_text(scanner));
         // XXX This line should not be necessary; EOL should automatically
         // terminate parsing. :-(
-        if (lexCode == EOL) Parse(shellParser, 0, NULL);
+        if (lexCode == EOL) Parse(dateParser, 0, NULL);
     } while (lexCode > 0);
 
     if (-1 == lexCode) {
@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
 
     // Cleanup the scanner and parser
     yylex_destroy(scanner);
-    ParseFree(shellParser, free);
+    ParseFree(dateParser, free);
     return 0;
 }
+

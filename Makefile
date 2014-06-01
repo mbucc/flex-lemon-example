@@ -1,19 +1,19 @@
 CFLAGS := $(CFLAGS) -std=c99
 
-shell: main.o shellparser.o shellscanner.o
-	$(CC) -o shell main.o shellparser.o shellscanner.o
+date: main.o dateparser.o datescanner.o
+	$(CC) -o date main.o dateparser.o datescanner.o
 
-main.o: main.c shellparser.h shellscanner.h
+main.o: main.c dateparser.h datescanner.h
 
-shellparser.o: shellparser.h shellparser.c
+dateparser.o: dateparser.h dateparser.c
 
-shellparser.h shellparser.c: shellparser.y lemon
-	./lemon shellparser.y
+dateparser.h dateparser.c: dateparser.y lemon
+	./lemon dateparser.y
 
-shellscanner.o: shellscanner.h
+datescanner.o: datescanner.h
 
-shellscanner.h: shellscanner.l
-	flex --outfile=shellscanner.c --header-file=shellscanner.h shellscanner.l
+datescanner.h: datescanner.l
+	flex --outfile=datescanner.c --header-file=datescanner.h datescanner.l
 
 # Prevent yacc from trying to build parsers.
 # http://stackoverflow.com/a/5395195/79202
@@ -25,6 +25,6 @@ lemon: lemon.c
 .PHONY: clean
 clean:
 	rm -f *.o
-	rm -f shellscanner.c shellscanner.h
-	rm -f shellparser.c shellparser.h shellparser.out
-	rm -f shell lemon
+	rm -f datescanner.c datescanner.h
+	rm -f dateparser.c dateparser.h dateparser.out
+	rm -f date lemon
