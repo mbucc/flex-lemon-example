@@ -1,11 +1,16 @@
 lemon-parser-tutorial
 =====================
 
-Ported to C from the [original C++ examples](https://github.com/bskari/lemon-parser-tutorial)
-by [@bskari](https://github.com/bskari). The tutorials:
+[Lemon](http://www.hwaci.com/sw/lemon/) is a
+replacement for bison and yacc, and is part the SQLite source tree.
+It's uses a different grammar, is thread-safe, and is designed to run
+inside long-running processes (ie not leak).
 
-* [Part 1](http://brskari.wordpress.com/2012/04/29/writing-a-basic-shell-using-flex-and-lemon-part-1/)
-* [Part 2](http://brskari.wordpress.com/2012/04/30/writing-a-simple-shell-using-flex-and-lemon-part-2/)
+This repo started from David Wheeler's
+([@theory](https://github.com/theory) C port of a [C++ shell
+example](https://github.com/bskari/lemon-parser-tutorial) by
+[@bskari](https://github.com/bskari).
+
 
 To build it, run:
 
