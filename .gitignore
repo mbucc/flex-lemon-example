@@ -1,8 +1,8 @@
 /lemon
 *.o
-/shellparser.c
-/shellparser.h
-/shellparser.out
-/shellscanner.h
-/shell
+/dateparser.c
+/dateparser.h
+/dateparser.out
+/datescanner.h
+/date
 
