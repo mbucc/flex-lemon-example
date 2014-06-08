@@ -34,6 +34,8 @@ lemon: lemon.c
 .PHONY: clean
 clean:
 	rm -f *.o
+	rm -f *.out
 	rm -f datescanner.c datescanner.h
-	rm -f dateparser.c dateparser.h dateparser.out
+	rm -f dateparser.c dateparser.h
 	rm -f date lemon driver
+	(cd regress ; make clean)
