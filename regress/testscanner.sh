@@ -27,9 +27,6 @@
 # testscanner.sh - check if datescanner works
 #
 
-# force a specified test program, e.g. `env test=/bin/test sh TEST.sh'
-: ${test=test}		
-
 ERROR=0 FAILED=0
 
 t ()
@@ -37,24 +34,21 @@ t ()
 	# $1 -> string to parse
 	# $2 -> expected tokens
 
-	printf "%s --> %s: " "$1" "$2"
+	printf "%s: " "$1"
 
 	result=$(printf "%s" "$1" | ./testscanner)
 	if [ "$result" == "$2" ] ; then
 		echo " OK";
 	else
-		failed $result
+		echo " FAIL"; 
+		echo "	got	x${result}x"
+		echo "	exp	x${2}x"
+		FAILED=`expr $FAILED + 1`
 	fi
 }
 
-failed () 
-{
-	printf "\n       failed, got %s\n" $1
-	FAILED=`expr $FAILED + 1`
-}
 
-
-t 	'12/25/2014'		'DATE_EXPR'
+t 	'12/25/2014'		'INT SEP INT SEP INT'
 
 
 echo ""

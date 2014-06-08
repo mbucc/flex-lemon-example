@@ -9,11 +9,15 @@
 %%
 
 
-.+					{ return DATE_EXPR; }
-.					{ errx(1, "invalid character %s", yytext); }
+[1-9][0-9]*			{ return INT; }
+
+[/-]					{ return SEP; }
 
 \n					{ /* ignore */  }
 [ \t]					{ /* ignore */  }
+
+.					{ errx(1, "invalid character %s", yytext); }
+
 %%
 
 

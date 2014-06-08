@@ -1,8 +1,6 @@
-/lemon
+lemon
 *.o
-/dateparser.c
-/dateparser.h
-/dateparser.out
-/datescanner.h
-/date
-
+*.out
+dateparser.[ch]
+datescanner.[ch]
+date

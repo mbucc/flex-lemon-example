@@ -31,6 +31,10 @@ datescanner.c: datescanner.l dateparser.c
 lemon: lemon.c
 	${CC} -o lemon lemon.c
 
+test: datescanner.c
+	(cd regress ; make )
+
+
 .PHONY: clean
 clean:
 	rm -f *.o
