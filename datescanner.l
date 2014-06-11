@@ -30,6 +30,10 @@ pm		([pP][mM]|[pP])\.?
 {pm}						{ return PM; }
 
 :						{ return COLON; }
+,						{ return COMMA; }
+
+[nN][oO][oO][nN]			{ return NOON; }
+[mM][iI][dD][nN][iI][gG][hH][tT]	{ return MIDNIGHT; }
 
 [1-9][0-9]*				{ return INT; }
 

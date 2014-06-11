@@ -50,6 +50,7 @@ t ()
 
 t 	'12/25/2014'				'INT SEP INT SEP INT'
 t 	'Jan 30 @ 10am and 3:15p'	'MONTH INT AT INT AM AND INT COLON INT PM'
+t 	'Jan 30 @ 10am, noon and 4'	'MONTH INT AT INT AM COMMA NOON AND INT'
 
 
 echo ""
