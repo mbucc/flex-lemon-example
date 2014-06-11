@@ -41,14 +41,15 @@ t ()
 		echo " OK";
 	else
 		echo " FAIL"; 
-		echo "	got	x${result}x"
-		echo "	exp	x${2}x"
+		echo "	got	|${result}|"
+		echo "	exp	|${2}|"
 		FAILED=`expr $FAILED + 1`
 	fi
 }
 
 
-t 	'12/25/2014'		'INT SEP INT SEP INT'
+t 	'12/25/2014'				'INT SEP INT SEP INT'
+t 	'Jan 30 @ 10am and 3:15p'	'MONTH INT AT INT AM AND INT COLON INT PM'
 
 
 echo ""
