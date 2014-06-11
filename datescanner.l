@@ -7,7 +7,7 @@
 %option noyywrap
 
 jan		[Jj][Aa][Nn](\.|[uU][aA][rR][yY])?
-feb		[Ff][Ee][Bb]](\.|[rR][uU][aA][rR][yY])?
+feb		[Ff][Ee][Bb](\.|[rR][uU][aA][rR][yY])?
 mar		[Mm][Aa][Rr](\.|[Cc][Hh])?
 apr		[Ap][Pp][Rr](\.|[Ii][Ll])?
 may		[Mm][Aa][Yy]
@@ -19,8 +19,8 @@ oct		[Oo][Cc][Tt](\.|[Oo][Bb][Ee][Rr])?
 nov		[Nn][Oo][Vv](\.|[Ee][Mm][Bb][Ee][Rr])?
 dec		[Dd][Ee][Cc](\.|[Ee][Mm][Bb][Ee][Rr])?
 
-am		([aA][mM]|[aA])\.?
-pm		([pP][mM]|[pP])\.?
+am		([aA]\.?[mM]|[aA])\.?
+pm		([pP]\.?[mM]|[pP])\.?
 
 
 
@@ -31,6 +31,12 @@ pm		([pP][mM]|[pP])\.?
 
 :						{ return COLON; }
 ,						{ return COMMA; }
+through					{ return TO; }
+to						{ return TO; }
+thru						{ return TO; }
+
+
+
 
 [nN][oO][oO][nN]			{ return NOON; }
 [mM][iI][dD][nN][iI][gG][hH][tT]	{ return MIDNIGHT; }
@@ -43,7 +49,8 @@ and						{ return AND; }
 &						{ return AND; }
 
 
-[/-]						{ return SEP; }
+-						{ return DASH; }
+[/]						{ return SLASH; }
 
 {jan}|{feb}|{mar}|{apr}|{may}|{jun}|{jul}|{aug}|{sep}|{oct}|{nov}|{dec}	{return MONTH;}
 

@@ -47,10 +47,30 @@ t ()
 	fi
 }
 
+t 	'a.m.'					'AM'
+t	'p.m.'					'PM'
+t	'a'						'AM'
+t	'p'						'PM'
+t	'am'						'AM'
+t	'pm'						'PM'
 
-t 	'12/25/2014'				'INT SEP INT SEP INT'
+t	'Jan'						'MONTH'
+t	'Feb'						'MONTH'
+t	'Mar'						'MONTH'
+t	'Apr'						'MONTH'
+t	'May'						'MONTH'
+t	'Jun'		'MONTH'
+t	'Jul'	'MONTH'
+t	'Aug'	'MONTH'
+t	'Sep'	'MONTH'
+t	'Oct'	'MONTH'
+t	'Nov'	'MONTH'
+t	'Dec'	'MONTH'
+
+t 	'12/25/2014'				'INT SLASH INT SLASH INT'
 t 	'Jan 30 @ 10am and 3:15p'	'MONTH INT AT INT AM AND INT COLON INT PM'
 t 	'Jan 30 @ 10am, noon and 4'	'MONTH INT AT INT AM COMMA NOON AND INT'
+t	'Jan 30 through Feb 15 at 8pm'	'MONTH INT TO MONTH INT AT INT PM'
 
 
 echo ""
