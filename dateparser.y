@@ -6,27 +6,30 @@
 %token_type 		{ const char* }
 %syntax_error		{ fprintf(stderr, "Error parsing command\n"); }
 
-main		::= date TO date AT times.
+main			::= date_expr.
 
-main		::= date DASH date AT times.
+date_expr		::= date_range AT times.
+date_expr		::= date AT times.
+date_expr		::= date.
 
-main		::= date AT times.
-main		::= date AT time.
-main		::= date.
+date_range	::= date TO date.
+date_range	::= date DASH date.
 
-date		::= INT date_sep INT date_sep INT.
-date		::= MONTH INT INT.
+date			::= INT date_sep INT date_sep INT.
+date			::= MONTH INT INT.
+date_sep		::= DASH.
+date_sep		::= SLASH.
 
-times	::= times AND time.
-times	::= times COMMA time.
+times		::= times AND time.
+times		::= times COMMA time.
+times		::= time.
 
-time		::= INT meridian.
-time		::= INT COLON INT meridian.
-time		::= NOON.
-time		::= MIDNIGHT.
+time			::= INT meridian.
+time			::= INT COLON INT meridian.
+time			::= NOON.
+time			::= MIDNIGHT.
 
-date_sep	::= DASH.
-date_sep	::= SLASH.
-meridian	::= AM.
-meridian	::= PM.
+meridian		::= AM.
+meridian		::= PM.
+
 
