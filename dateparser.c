@@ -277,7 +277,7 @@ chkdt(int month, int day, int year, struct emsg *emsg)
 			errx(1, "strdup failed in chkdt");
 	}
 
-	if (!emsg->s && year < thisyear() - 2 || year > MAX_YEAR) {
+	if (!emsg->s && (year < thisyear() - 2 || year > MAX_YEAR) ) {
 		emsg->s = strdup("invalid year");
 		if (!emsg->s)
 			errx(1, "strdup failed in chkdt");
@@ -303,6 +303,35 @@ chkdt3(const char *monthint, const char *day, const char *year, struct emsg *ems
 {
 	chkdt(stoi(monthint), stoi(day), stoi(year), emsg);
 }
+
+void
+chktm(int hour, int min, int am, struct emsg *emsg)
+{
+	if (!emsg->s && (hour < 1 || (am && hour > 12) || (!am && hour > 24) ) ) {
+		emsg->s = strdup("invalid hour");
+		if (!emsg->s)
+			errx(1, "strdup failed in chktm");
+	}
+
+	if (!emsg->s && (min < 0 || min > 59) ) {
+		emsg->s = strdup("invalid minute");
+		if (!emsg->s)
+			errx(1, "strdup failed in chktm");
+	}
+}
+
+int
+isam(const char *s)
+{
+	return s[0] == 'a';
+}
+
+void
+chktm1(const char *hour, const char *min, const char* meridian, struct emsg *emsg)
+{
+	chktm(stoi(hour), (min ? stoi(min): 0), isam(meridian), emsg);
+}
+
 
 // Read next token.
 int 

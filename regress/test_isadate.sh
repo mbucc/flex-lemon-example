@@ -48,7 +48,7 @@ t ()
 }
 
 t 	'12/25/2014'					'0: col=0 msg=(null)'
-t	'Bill Russel'					'1: col=1 msg=Invalid syntax'
+t	'Bill Russell'					'1: col=1 msg=Invalid syntax'
 t	'12/25zzzabc'					'1: col=6 msg=Invalid syntax'
 
 
@@ -67,6 +67,9 @@ t	'Jan 5, 1804'					'1: col=12 msg=invalid year'
 t	'9999/5/42'					'1: col=10 msg=invalid month'
 t	'12/0/2030'					'1: col=10 msg=invalid day'
 t	'12/10/99999999999999999999999999999999'	'1: col=39 msg=invalid year'
+
+t	'Jan 1 @ 25pm'					'1: col=13 msg=invalid hour'
+t	'Jan 1 @ 0:15'					'0: col=0'
 
 
 echo ""

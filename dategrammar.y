@@ -45,13 +45,13 @@ times		::= times COMMA time.
 times		::= times COMMA AND time.
 times		::= time.
 
-time			::= INT meridian.
-time			::= INT COLON INT meridian.
+time			::= INT(A) meridian (B).					{  chktm1(A, 0, B, emsg); }
+time			::= INT(A) COLON INT(B) meridian(C).		{  chktm1(A, B, C, emsg); }
 time			::= NOON.
 time			::= MIDNIGHT.
 
 
-meridian		::= AM.
-meridian		::= PM.
+meridian(A)	::= AM(B).								{ A = B; }
+meridian(A)	::= PM(B).								{ A = B;  }
 
 
