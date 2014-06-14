@@ -56,6 +56,7 @@ t 	'Jan 30 @ 10am and 3:15p'		'0: col=0'
 t 	'Jan 30 @ 10am, noon and 4'		'0: col=0'
 t	'Jan 30 through Feb 15 at 8pm'		'0: col=0'
 
+t	'Jan 54'						'0: col=5'
 
 
 echo ""
