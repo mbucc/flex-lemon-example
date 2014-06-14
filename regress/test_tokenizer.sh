@@ -36,7 +36,7 @@ t ()
 
 	printf "%s: " "$1"
 
-	result=$(printf "%s" "$1" | ./testscanner)
+	result=$(printf "%s" "$1" | ./test_tokenizer)
 	if [ "$result" == "$2" ] ; then
 		echo " OK";
 	else
@@ -67,10 +67,13 @@ t	'Oct'	'MONTH'
 t	'Nov'	'MONTH'
 t	'Dec'	'MONTH'
 
+
 t 	'12/25/2014'				'INT SLASH INT SLASH INT'
 t 	'Jan 30 @ 10am and 3:15p'	'MONTH INT AT INT AM AND INT COLON INT PM'
 t 	'Jan 30 @ 10am, noon and 4'	'MONTH INT AT INT AM COMMA NOON AND INT'
 t	'Jan 30 through Feb 15 at 8pm'	'MONTH INT TO MONTH INT AT INT PM'
+
+
 
 
 echo ""

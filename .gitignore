@@ -2,5 +2,5 @@ lemon
 *.o
 *.out
 dateparser.[ch]
-datescanner.[ch]
 date
+t.c

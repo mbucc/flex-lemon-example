@@ -9,10 +9,10 @@ driver: drivermain.c dateparser.c
 	${CC} -o $@ t.c
 	rm t.c
 
-date: main.o dateparser.o datescanner.o
-	${CC} -o date main.o dateparser.o datescanner.o
+date: main.o dateparser.o tokenizer.o
+	${CC} -o date main.o dateparser.o tokenizer.o
 
-main.o: main.c dateparser.c datescanner.c
+main.o: main.c dateparser.c tokenizer.c
 
 # Don't use dateparser.h as a target, as the timestamp is not updated by
 # lemon if there is no change in tokens. Using dateparser.c is
@@ -21,9 +21,6 @@ dateparser.c: dateparser.y lemon
 	./lemon dateparser.y
 
 
-datescanner.c: datescanner.l dateparser.c
-	${LEX} -t datescanner.l > $@
-
 # Prevent yacc from trying to build parsers.
 # http://stackoverflow.com/a/5395195/79202
 %.c: %.y
@@ -31,7 +28,7 @@ datescanner.c: datescanner.l dateparser.c
 lemon: lemon.c
 	${CC} -o lemon lemon.c
 
-test: datescanner.c
+test: tokenizer.c
 	(cd regress ; make )
 
 
@@ -39,7 +36,7 @@ test: datescanner.c
 clean:
 	rm -f *.o
 	rm -f *.out
-	rm -f datescanner.c datescanner.h
+	rm -f tokenizer.c tokenizer.h
 	rm -f dateparser.c dateparser.h
 	rm -f date lemon driver
 	(cd regress ; make clean)
