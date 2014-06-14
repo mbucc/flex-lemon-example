@@ -62,6 +62,7 @@ t	'Jan 5'						'0: col=0 msg=(null)'
 
 t	'Jan 54'						'1: col=7 msg=invalid day'
 
+t	'Jan 5, 1804'					'1: col=12 msg=invalid year'
 
 
 

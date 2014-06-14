@@ -47,6 +47,8 @@ struct token {
 	size_t	len;
 	int		id; };
 
+#define MAX_YEAR		2050
+
 #define JAN1	"january"
 #define JAN2	"jan."
 #define JAN3	"jan"
@@ -259,7 +261,7 @@ not_a_number:
 }
 
 void
-chkdt2(int month, int day, int year, struct emsg *emsg)
+chkdt(int month, int day, int year, struct emsg *emsg)
 {	
 	int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
@@ -269,24 +271,35 @@ chkdt2(int month, int day, int year, struct emsg *emsg)
 	if (!emsg->s && (month < 1 || month > 13) ) {
 		emsg->s = strdup("invalid month");
 		if (!emsg->s)
-			errx(1, "strdup failed in chkdt2");
+			errx(1, "strdup failed in chkdt");
 	}
 
 	if (!emsg->s && day > days[month - 1]) {
 		emsg->s = strdup("invalid day");
 		if (!emsg->s)
-			errx(1, "strdup failed in chkdt2");
+			errx(1, "strdup failed in chkdt");
 	}
 
+	if (!emsg->s && year < thisyear() - 2 || year > MAX_YEAR) {
+		emsg->s = strdup("invalid year");
+		if (!emsg->s)
+			errx(1, "strdup failed in chkdt");
+	}
 }
+
 
 
 void
 chkdt1(const char *monthname, const char *day, struct emsg *emsg)
 {
-	chkdt2(monthnametoi(monthname), stoi(day), thisyear(), emsg);
+	chkdt(monthnametoi(monthname), stoi(day), thisyear(), emsg);
 }
 
+void
+chkdt2(const char *monthname, const char *day, const char *year, struct emsg *emsg)
+{
+	chkdt(monthnametoi(monthname), stoi(day), stoi(year), emsg);
+}
 
 // Read next token.
 int 

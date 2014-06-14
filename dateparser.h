@@ -41,3 +41,4 @@ int		isadate(const char *, struct emsg *);
 
 
 void		chkdt1(const char *, const char *, struct emsg *);
+void		chkdt2(const char *, const char *, const char *, struct emsg *);
