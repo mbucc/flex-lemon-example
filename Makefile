@@ -18,7 +18,7 @@ dategrammar.c: dategrammar.y lemon
 lemon: lemon.c
 	${CC} -o lemon lemon.c
 
-test:
+test: dategrammar.c
 	(cd regress ; make )
 
 
