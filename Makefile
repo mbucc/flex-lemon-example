@@ -25,7 +25,7 @@ test:
 clean:
 	rm -f *.o
 	rm -f *.out
-	rm -f tmp.c
+	rm -f tmp.c t.c
 	rm -f dategrammar.c dategrammar.h
 	rm -f  lemon
 	(cd regress ; make clean)
