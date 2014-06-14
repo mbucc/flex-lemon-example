@@ -30,10 +30,12 @@
  *  SUCH DAMAGE.
  */
 
+#include <ctype.h>
+#include <err.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+
 
 #include "dategrammar.h"
 
@@ -121,6 +123,8 @@ static const int digit[256] = {
 	['8']=1,
 	['9']=1 };
 
+#include "dategrammar.c"
+
 void
 lc(char **buf)
 {
@@ -130,12 +134,11 @@ lc(char **buf)
 }
 
 int 
-tok(char **c, size_t *bsz, size_t *toksz, int *col) {
+tok( char **c, size_t *bsz, size_t *toksz ) {
 	int		i;
 
 	/* Skip leading whitespace. */
 	while( *bsz && whitespace[ (int) **c] ) {
-		(*col)++; 
 		(*bsz)--; 
 		(*c)++; 
 	}
@@ -188,11 +191,10 @@ isadate(const char *s, int *col)
 	lc(&buf);
 
 	bufsz = strlen(buf);
-	first = 1;
 	p = buf;
 
 	while ( (token = tok(&p, &bufsz, &tokensz)) > 0 ) { 
-		text = strndup(p, tokensz);
+		tokentext = strndup(p, tokensz);
 		if (!tokentext)
 			errx(1, "failed to strdup token");
 		Parse(parser, token, tokentext);
@@ -207,7 +209,7 @@ isadate(const char *s, int *col)
 	}
 
 	free(buf);
-	ParseFree(parser);
+	ParseFree(parser, free);
 
 	return rval;
 }

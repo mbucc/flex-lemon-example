@@ -1,9 +1,8 @@
-	CFLAGS := $(CFLAGS) -std=c99
+CFLAGS := $(CFLAGS) -std=c99
 CC=/usr/bin/cc
 
-all:  dateparser.o
-
 dateparser.o: dategrammar.c dateparser.c
+
 
 #
 # Don't use dategrammar.h as a target
@@ -16,10 +15,6 @@ dategrammar.c: dategrammar.y lemon
 	./lemon dategrammar.y
 
 
-# Prevent yacc from trying to build parsers.
-# http://stackoverflow.com/a/5395195/79202
-#%.c: %.y
-
 lemon: lemon.c
 	${CC} -o lemon lemon.c
 
@@ -30,6 +25,7 @@ test:
 clean:
 	rm -f *.o
 	rm -f *.out
+	rm -f tmp.c
 	rm -f dategrammar.c dategrammar.h
 	rm -f  lemon
 	(cd regress ; make clean)
