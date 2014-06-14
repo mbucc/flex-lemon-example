@@ -3,8 +3,8 @@
 #include <assert.h>
 }
 
+
 %token_type 		{ const char* }
-%syntax_error		{ fprintf(stderr, "Error parsing command\n"); }
 %token_prefix 		TOK_
 
 main			::= date_expr.
