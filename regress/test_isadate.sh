@@ -69,7 +69,9 @@ t	'12/0/2030'					'1: col=10 msg=invalid day'
 t	'12/10/99999999999999999999999999999999'	'1: col=39 msg=invalid year'
 
 t	'Jan 1 @ 25pm'					'1: col=13 msg=invalid hour'
-t	'Jan 1 @ 0:15'					'0: col=0'
+t	'Jan 1 @ 0am'					'0: col=0 msg=(null)'
+t	'Jan 1 @ 10:15am'				'0: col=0 msg=(null)'
+t	'Jan 1 @ 10:61am'				'1: col=16 msg=invalid minute'
 
 
 echo ""

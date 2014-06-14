@@ -307,7 +307,7 @@ chkdt3(const char *monthint, const char *day, const char *year, struct emsg *ems
 void
 chktm(int hour, int min, int am, struct emsg *emsg)
 {
-	if (!emsg->s && (hour < 1 || (am && hour > 12) || (!am && hour > 24) ) ) {
+	if (!emsg->s && (hour < 0 || (am && hour > 12) || (!am && hour > 24) ) ) {
 		emsg->s = strdup("invalid hour");
 		if (!emsg->s)
 			errx(1, "strdup failed in chktm");
