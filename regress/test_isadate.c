@@ -30,8 +30,9 @@
 int
 main(int argc, char **argv)
 {
-	char		*buf;
-	int		rval, col;
+	char			*buf;
+	struct emsg	emsg = {0};
+	int			rval;
 
 
 	/* Convert stdin to a string. */
@@ -40,9 +41,9 @@ main(int argc, char **argv)
 		errx(1, "Failed to allocate buf");
 	fscanf(stdin, "%1023[^\n]", buf);
 
-	rval = isadate(buf, &col);
+	rval = isadate(buf, &emsg);
 
-	printf("%d: col=%d\n", rval, col);
+	printf("%d: col=%d msg=%s\n", rval, emsg.col, emsg.s);
 
 	free(buf);
 

@@ -47,16 +47,22 @@ t ()
 	fi
 }
 
-t 	'12/25/2014'					'0: col=0'
-t	'Bill Russel'					'1: col=1'
-t	'12/25zzzabc'					'1: col=6'
+t 	'12/25/2014'					'0: col=0 msg=(null)'
+t	'Bill Russel'					'1: col=1 msg=Invalid syntax'
+t	'12/25zzzabc'					'1: col=6 msg=Invalid syntax'
 
 
-t 	'Jan 30 @ 10am and 3:15p'		'0: col=0'
-t 	'Jan 30 @ 10am, noon and 4'		'0: col=0'
-t	'Jan 30 through Feb 15 at 8pm'		'0: col=0'
+t 	'Jan 30 @ 10am and 3:15p'		'0: col=0 msg=(null)'
+#t 	'Jan 30 @ 10am, noon and 4'		'0: col=0 msg=(null)'
+t	'Jan 30 through Feb 15 at 8pm'		'0: col=0 msg=(null)'
 
-t	'Jan 54'						'0: col=5'
+
+t	'Jan'							'1: col=4 msg=Invalid syntax'
+t	'Jan 5'						'0: col=0 msg=(null)'
+
+#t	'Jan 54'						'1: col=5 msg=Invalid syntax'
+
+
 
 
 echo ""

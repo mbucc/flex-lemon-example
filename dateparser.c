@@ -128,14 +128,16 @@ static const int digit[256] = {
 void
 lc(char **buf)
 {
-	char *p = *buf;
+	char 			*p;
+
+	p = *buf;
 	for ( ; *p; ++p)
 		*p = tolower(*p);
 }
 
 int 
 tok( char **c, size_t *bsz, size_t *toksz ) {
-	int		i;
+	int			i;
 
 	/* Skip leading whitespace. */
 	while( *bsz && whitespace[ (int) **c] ) {
@@ -170,12 +172,12 @@ tok( char **c, size_t *bsz, size_t *toksz ) {
 
 
 int
-isadate(const char *s, int *col)
+isadate(const char *s, struct emsg *emsg)
 {
-	void		*parser  = NULL;
-	char		*buf = NULL, *p, *tokentext;
-	int		token, rval;
-	size_t	tokensz, bufsz;
+	void			*parser  = NULL;
+	char			*buf = NULL, *p, *tokentext;
+	int			token, rval;
+	size_t		tokensz, bufsz;
 
 	rval = 0;
 
@@ -193,21 +195,25 @@ isadate(const char *s, int *col)
 	bufsz = strlen(buf);
 	p = buf;
 
-	while ( (token = tok(&p, &bufsz, &tokensz)) > 0 ) { 
+	while ( (token = tok(&p, &bufsz, &tokensz)) > 0 && !emsg->s ) { 
 		tokentext = strndup(p, tokensz);
 		if (!tokentext)
 			errx(1, "failed to strdup token");
-		Parse(parser, token, tokentext);
+		Parse(parser, token, tokentext, emsg);
  		bufsz -= tokensz;
 		p += tokensz;
 	}
-	Parse(parser, 0, 0);
+	Parse(parser, 0, 0, emsg);
 
-	if (token < 0) {
-		*col = (int) (strlen(buf) - bufsz) + 1;
+	if (emsg->s) {
+		rval = 1;
+		emsg->col = (int) (strlen(buf) - bufsz) + 1;
+	}
+	else if (token < 0) {
+		emsg->s = strdup("invalid token");
+		emsg->col = (int) (strlen(buf) - bufsz) + 1;
 		rval = 1;
 	}
-
 	free(buf);
 	ParseFree(parser, free);
 

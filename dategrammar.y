@@ -1,11 +1,27 @@
 %include {
 #include <stdio.h>
 #include <assert.h>
+
+#include "dateparser.h"
+
+	void
+	logemsg(struct emsg *p, const char *msg)
+	{
+		// Keep the first error.
+		if (p->s)
+			return;
+		p->s = strdup(msg);
+		if (!p->s)
+			errx(1, "strdup failed in dategrammar error handler");
+	}
 }
 
 
 %token_type 		{ const char* }
 %token_prefix 		TOK_
+%extra_argument	{ struct emsg	*p}
+
+%syntax_error		{ logemsg(p, "Invalid syntax"); }
 
 main			::= date_expr.
 
@@ -19,6 +35,8 @@ date_range	::= date DASH date.
 date			::= INT date_sep INT date_sep INT.
 date			::= MONTH INT INT.
 date			::= MONTH INT COMMA INT.
+date			::= MONTH INT.
+
 
 date_sep		::= DASH.
 date_sep		::= SLASH.

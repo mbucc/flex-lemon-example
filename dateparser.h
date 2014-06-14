@@ -25,10 +25,15 @@
  */
 
 
+struct emsg {
+	char			*s;
+	int			col;
+};
+
 /*
 	Return 0 if string contains a date expression, 0 otherwise.
 
 	If note a date expression, then
 	col will contain the column at which the parsing failed.
 */
-int		isadate(const char *s, int *col);
+int		isadate(const char *, struct emsg *);
