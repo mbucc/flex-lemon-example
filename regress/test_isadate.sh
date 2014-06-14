@@ -53,7 +53,7 @@ t	'12/25zzzabc'					'1: col=6 msg=Invalid syntax'
 
 
 t 	'Jan 30 @ 10am and 3:15p'		'0: col=0 msg=(null)'
-#t 	'Jan 30 @ 10am, noon and 4'		'0: col=0 msg=(null)'
+t 	'Jan 30 @ 10am, noon and 4pm'		'0: col=0 msg=(null)'
 t	'Jan 30 through Feb 15 at 8pm'		'0: col=0 msg=(null)'
 
 

@@ -1,7 +1,7 @@
 CFLAGS := $(CFLAGS) -std=c99
 
 test: test_tokenizer test_isadate
-	#./test_tokenizer.sh
+	./test_tokenizer.sh
 	./test_isadate.sh
 
 test_tokenizer: ../dateparser.c tokentos.c test_tokenizer.c ../dategrammar.c ../dategrammar.h
