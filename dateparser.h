@@ -33,7 +33,11 @@ struct emsg {
 /*
 	Return 0 if string contains a date expression, 0 otherwise.
 
-	If note a date expression, then
-	col will contain the column at which the parsing failed.
+	If not a date expression, then
+	emsg will the column at which the parsing failed
+	and an error message (which the caller must free).
 */
 int		isadate(const char *, struct emsg *);
+
+
+void		chkdt1(const char *, const char *, struct emsg *);

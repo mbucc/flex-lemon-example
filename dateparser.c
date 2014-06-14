@@ -32,9 +32,12 @@
 
 #include <ctype.h>
 #include <err.h>
+#include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 #include "dategrammar.h"
@@ -44,54 +47,97 @@ struct token {
 	size_t	len;
 	int		id; };
 
+#define JAN1	"january"
+#define JAN2	"jan."
+#define JAN3	"jan"
+#define FEB1	"february"
+#define FEB2	"feb."
+#define FEB3	"feb"
+#define MAR1	"march"
+#define MAR2	"mar."
+#define MAR3	"mar"
+#define APR1	"april"
+#define APR2	"apr."
+#define APR3	"apr"
+#define MAY1	"may"
+#define JUN1	"june"
+#define JUN2	"jun."
+#define JUN3	"jun"
+#define JUL1	"july"
+#define JUL2	"jul."
+#define JUL3	"jul"
+#define AUG1	"august"
+#define AUG2	"aug."
+#define AUG3	"aug"
+#define SEP1	"september"
+#define SEP2	"sep."
+#define SEP3	"sep"
+#define OCT1	"october"
+#define OCT2	"oct."
+#define OCT3	"oct"
+#define NOV1	"november"
+#define NOV2	"nov."
+#define NOV3	"nov"
+#define DEC1	"december"
+#define DEC2	"dec."
+#define DEC3	"dec"
+
+
+static const char *months1[12] = { 
+	JAN1,FEB1,MAR1,APR1,MAY1,JUN1,JUL1,AUG1,SEP1,OCT1,NOV1,DEC1 };
+
+static const char *months2[12] = { 
+	JAN2,FEB2,MAR2,APR2,MAY1,JUN2,JUL2,AUG2,SEP2,OCT2,NOV2,DEC2 };
+
+static const char *months3[12] = {
+	JAN3,FEB3,MAR3,APR3,MAY1,JUN3,JUL3,AUG3,SEP3,OCT3,NOV3,DEC3 };
+
 static const struct token tokens[] = {
-	{"january", 7, TOK_MONTH},
-	{"february", 8, TOK_MONTH},
-	{"march", 5, TOK_MONTH},
-	{"april", 5, TOK_MONTH},
-	{"may", 3, TOK_MONTH},
-	{"june", 4, TOK_MONTH},
-	{"july", 4, TOK_MONTH},
-	{"august", 6, TOK_MONTH},
-	{"september", 9, TOK_MONTH},
-	{"october", 7, TOK_MONTH},
-	{"november", 8, TOK_MONTH},
-	{"december", 8, TOK_MONTH},
-	{"jan.", 4, TOK_MONTH},
-	{"feb.", 4, TOK_MONTH},
-	{"mar.", 4, TOK_MONTH},
-	{"apr.", 4, TOK_MONTH},
-	{"may", 3, TOK_MONTH},
-	{"jun.", 4, TOK_MONTH},
-	{"jul.", 4, TOK_MONTH},
-	{"aug.", 4, TOK_MONTH},
-	{"sep.", 4, TOK_MONTH},
-	{"oct.", 4, TOK_MONTH},
-	{"nov.", 4, TOK_MONTH},
-	{"dec.", 4, TOK_MONTH},
-	{"jan", 3, TOK_MONTH},
-	{"feb", 3, TOK_MONTH},
-	{"mar", 3, TOK_MONTH},
-	{"apr", 3, TOK_MONTH},
-	{"may", 3, TOK_MONTH},
-	{"jun", 3, TOK_MONTH},
-	{"jul", 3, TOK_MONTH},
-	{"aug", 3, TOK_MONTH},
-	{"sep", 3, TOK_MONTH},
-	{"oct", 3, TOK_MONTH},
-	{"nov", 3, TOK_MONTH},
-	{"dec", 3, TOK_MONTH},
-	
+	{ JAN1, strlen(JAN1), TOK_MONTH },
+	{ JAN2, strlen(JAN2), TOK_MONTH },
+	{ JAN3, strlen(JAN3), TOK_MONTH },
+	{ FEB1, strlen(FEB1), TOK_MONTH },
+	{ FEB2, strlen(FEB2), TOK_MONTH },
+	{ FEB3, strlen(FEB3), TOK_MONTH },
+	{ MAR1, strlen(MAR1), TOK_MONTH },
+	{ MAR2, strlen(MAR2), TOK_MONTH },
+	{ MAR3, strlen(MAR3), TOK_MONTH },
+	{ APR1, strlen(APR1), TOK_MONTH },
+	{ APR2, strlen(APR2), TOK_MONTH },
+	{ APR3, strlen(APR3), TOK_MONTH },
+	{ MAY1, strlen(MAY1), TOK_MONTH },
+	{ JUN1, strlen(JUN1), TOK_MONTH },
+	{ JUN2, strlen(JUN2), TOK_MONTH },
+	{ JUN3, strlen(JUN3), TOK_MONTH },
+	{ JUL1, strlen(JUL1), TOK_MONTH },
+	{ JUL2, strlen(JUL2), TOK_MONTH },
+	{ JUL3, strlen(JUL3), TOK_MONTH },
+	{ AUG1, strlen(AUG1), TOK_MONTH },
+	{ AUG2, strlen(AUG2), TOK_MONTH },
+	{ AUG3, strlen(AUG3), TOK_MONTH },
+	{ SEP1, strlen(SEP1), TOK_MONTH },
+	{ SEP2, strlen(SEP2), TOK_MONTH },
+	{ SEP3, strlen(SEP3), TOK_MONTH },
+	{ OCT1, strlen(OCT1), TOK_MONTH },
+	{ OCT2, strlen(OCT2), TOK_MONTH },
+	{ OCT3, strlen(OCT3), TOK_MONTH },
+	{ NOV1, strlen(NOV1), TOK_MONTH },
+	{ NOV2, strlen(NOV2), TOK_MONTH },
+	{ NOV3, strlen(NOV3), TOK_MONTH },
+	{ DEC1, strlen(DEC1), TOK_MONTH },
+	{ DEC2, strlen(DEC2), TOK_MONTH },
+	{ DEC3, strlen(DEC3), TOK_MONTH },
+
 	{"and", 3, TOK_AND},
 	{"at", 2, TOK_AT},
-
+	
 	{"a.m.", 4, TOK_AM},
 	{"am", 2, TOK_AM},
 	{"a", 1, TOK_AM},
 	{"p.m.", 4, TOK_PM},
 	{"pm", 2, TOK_PM},
 	{"p", 1, TOK_PM},
-
+	
 	{"midnight", 8, TOK_MIDNIGHT},
 	{"noon", 4, TOK_NOON},
 	{"through", 7, TOK_TO},
@@ -103,6 +149,7 @@ static const struct token tokens[] = {
 	{"/", 1, TOK_SLASH},
 	{",", 1, TOK_COMMA},
 	{":", 1, TOK_COLON} };
+
 
 static const int whitespace[256] = { 
 	['\r']=1,
@@ -125,6 +172,8 @@ static const int digit[256] = {
 
 #include "dategrammar.c"
 
+
+// Inplace lower case.
 void
 lc(char **buf)
 {
@@ -135,6 +184,111 @@ lc(char **buf)
 		*p = tolower(*p);
 }
 
+
+// Check dates for validity.
+int
+thisyear()
+{
+	char		*rval = 0;
+    	time_t 	tm;
+    	struct tm	*p;
+
+	rval = calloc(5, sizeof(char));
+	if (!rval)
+		errx(1, "calloc failed in thisyear()");
+
+	if (time( &tm ) == (time_t)-1)
+		errx(1, "time failed in thisyear()");
+
+	p = localtime ( &tm );
+	if (!p)
+		errx(1, "localtime failed in thisyear()");
+
+	return p->tm_year + 1900;
+}
+
+int
+monthnametoi(const char *monthname)
+{
+	const char		**a[] = {months1, months2, months3};
+	char		*buf;
+	int		i, j;
+
+	buf = strdup(monthname);
+	if (!buf)
+		errx(1, "strdup failed");
+	lc(&buf);
+
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 12; j++) {
+			if (!strcmp(buf, a[i][j])) {
+				free(buf);
+				return j + 1;
+			}
+		}
+
+	free(buf);
+	errx(1, "logic error: can't match month name '%s'", monthname);
+}
+
+int
+stoi(const char *buf)
+{
+	char	*ep;
+	int		ival;
+	long	lval;
+	
+	errno = 0;
+	lval = strtol(buf, &ep, 10);
+	if (buf[0] == '\0' || *ep != '\0')
+		goto not_a_number;
+	if ((errno == ERANGE && (lval == LONG_MAX || lval == LONG_MIN)) ||
+		(lval > INT_MAX || lval < INT_MIN))
+		goto out_of_range;
+
+	ival = lval;
+
+	return ival;
+
+out_of_range:
+	errx(1, "really huge number ('%s')", buf);
+
+not_a_number:
+	errx(1, "logic error, '%s' is not a number", buf);
+
+}
+
+void
+chkdt2(int month, int day, int year, struct emsg *emsg)
+{	
+	int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+	if ( year % 400 == 0 || (year % 100 != 0 && year % 4 == 0) )
+		days[1] = 29;
+	
+	if (!emsg->s && (month < 1 || month > 13) ) {
+		emsg->s = strdup("invalid month");
+		if (!emsg->s)
+			errx(1, "strdup failed in chkdt2");
+	}
+
+	if (!emsg->s && day > days[month - 1]) {
+		emsg->s = strdup("invalid day");
+		if (!emsg->s)
+			errx(1, "strdup failed in chkdt2");
+	}
+
+}
+
+
+void
+chkdt1(const char *monthname, const char *day, struct emsg *emsg)
+{
+	chkdt2(monthnametoi(monthname), stoi(day), thisyear(), emsg);
+}
+
+
+// Read next token.
 int 
 tok( char **c, size_t *bsz, size_t *toksz ) {
 	int			i;

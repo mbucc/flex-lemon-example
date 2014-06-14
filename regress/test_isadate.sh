@@ -60,7 +60,7 @@ t	'Jan 30 through Feb 15 at 8pm'		'0: col=0 msg=(null)'
 t	'Jan'							'1: col=4 msg=Invalid syntax'
 t	'Jan 5'						'0: col=0 msg=(null)'
 
-#t	'Jan 54'						'1: col=5 msg=Invalid syntax'
+t	'Jan 54'						'1: col=7 msg=invalid day'
 
 
 

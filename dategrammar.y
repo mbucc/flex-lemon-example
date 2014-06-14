@@ -19,9 +19,9 @@
 
 %token_type 		{ const char* }
 %token_prefix 		TOK_
-%extra_argument	{ struct emsg	*p}
+%extra_argument	{ struct emsg	*emsg}
 
-%syntax_error		{ logemsg(p, "Invalid syntax"); }
+%syntax_error		{ logemsg(emsg, "Invalid syntax"); }
 
 main			::= date_expr.
 
@@ -35,7 +35,7 @@ date_range	::= date DASH date.
 date			::= INT date_sep INT date_sep INT.
 date			::= MONTH INT INT.
 date			::= MONTH INT COMMA INT.
-date			::= MONTH INT.
+date			::= MONTH(A) INT(B).				{ chkdt1(A, B, emsg); }
 
 date_sep		::= DASH.
 date_sep		::= SLASH.
