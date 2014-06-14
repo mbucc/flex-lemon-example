@@ -17,6 +17,8 @@ date_range	::= date DASH date.
 
 date			::= INT date_sep INT date_sep INT.
 date			::= MONTH INT INT.
+date			::= MONTH INT COMMA INT.
+
 date_sep		::= DASH.
 date_sep		::= SLASH.
 
