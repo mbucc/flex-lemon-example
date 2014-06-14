@@ -1,6 +1,4 @@
 lemon
 *.o
 *.out
-dateparser.[ch]
-date
 t.c

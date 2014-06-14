@@ -33,7 +33,6 @@ main(int argc, char **argv)
 	char		*buf, *p;
 	int		token;
 	size_t	tokensz, bufsz;
-	int		col;
 	int		first;
 
 	/* Convert stdin to a string. */
@@ -48,7 +47,7 @@ main(int argc, char **argv)
 	first = 1;
 	p = buf;
 
-	while ( (token = tok(&p, &bufsz, &tokensz, &col)) > 0 ) { 
+	while ( (token = tok(&p, &bufsz, &tokensz )) > 0 ) { 
 
 		if (!first)
 			printf(" ");

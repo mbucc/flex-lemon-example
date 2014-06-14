@@ -16,3 +16,4 @@ clean:
 	rm -f *.o
 	rm -f test_tokenizer
 	rm -f y.tab.c
+	rm -f tokentos.c
