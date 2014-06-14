@@ -36,7 +36,6 @@ test: tokenizer.c
 clean:
 	rm -f *.o
 	rm -f *.out
-	rm -f tokenizer.c tokenizer.h
-	rm -f dateparser.c dateparser.h
-	rm -f date lemon driver
+	rm -f grammar.c grammar.h
+	rm -f date lemon
 	(cd regress ; make clean)
