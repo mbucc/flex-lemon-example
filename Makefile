@@ -1,4 +1,4 @@
-CFLAGS := $(CFLAGS) -std=c99
+	CFLAGS := $(CFLAGS) -std=c99
 CC=/usr/bin/cc
 
 all:  dateparser.o
@@ -31,5 +31,5 @@ clean:
 	rm -f *.o
 	rm -f *.out
 	rm -f dategrammar.c dategrammar.h
-	rm -f date lemon
+	rm -f  lemon
 	(cd regress ; make clean)

@@ -2,3 +2,5 @@ lemon
 *.o
 *.out
 t.c
+dategrammar.[ch]
+scratch
