@@ -22,7 +22,8 @@ Status
 
 	The tokenizing works and I've made a good start on a test suite.
 
-	The date expression grammar is untested.
+	The date expressions are not checked for semantics; for example,
+	January 54 is considered a valid date.
 	
 
 Build
