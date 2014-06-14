@@ -1,10 +1,16 @@
 CFLAGS := $(CFLAGS) -std=c99
 
-test: test_tokenizer test_tokenizer.sh
+test: test_tokenizer test_isadate
 	./test_tokenizer.sh
+	./test_isadate.sh
 
 test_tokenizer: ../dateparser.c tokentos.c test_tokenizer.c
 	cat ../dateparser.c tokentos.c test_tokenizer.c > t.c
+	${CC} -I.. -o $@ t.c
+	rm t.c
+
+test_isadate: ../dateparser.c test_isadate.c
+	cat ../dateparser.c test_isadate.c > t.c
 	${CC} -I.. -o $@ t.c
 	rm t.c
 
@@ -17,3 +23,5 @@ clean:
 	rm -f test_tokenizer
 	rm -f y.tab.c
 	rm -f tokentos.c
+	rm -f t.c
+	rm -f test_isadate

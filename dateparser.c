@@ -204,7 +204,7 @@ isadate(const char *s, int *col)
 	Parse(parser, 0, 0);
 
 	if (token < 0) {
-		*col = strlen( buf) - bufsz;
+		*col = (int) (strlen(buf) - bufsz) + 1;
 		rval = 1;
 	}
 
