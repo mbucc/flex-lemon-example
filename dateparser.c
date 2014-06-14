@@ -253,11 +253,8 @@ stoi(const char *buf)
 	return ival;
 
 out_of_range:
-	errx(1, "really huge number ('%s')", buf);
-
 not_a_number:
-	errx(1, "logic error, '%s' is not a number", buf);
-
+	return -1;
 }
 
 void
@@ -274,7 +271,7 @@ chkdt(int month, int day, int year, struct emsg *emsg)
 			errx(1, "strdup failed in chkdt");
 	}
 
-	if (!emsg->s && day > days[month - 1]) {
+	if (!emsg->s && (day > days[month - 1] || day < 1)) {
 		emsg->s = strdup("invalid day");
 		if (!emsg->s)
 			errx(1, "strdup failed in chkdt");
@@ -299,6 +296,12 @@ void
 chkdt2(const char *monthname, const char *day, const char *year, struct emsg *emsg)
 {
 	chkdt(monthnametoi(monthname), stoi(day), stoi(year), emsg);
+}
+
+void
+chkdt3(const char *monthint, const char *day, const char *year, struct emsg *emsg)
+{
+	chkdt(stoi(monthint), stoi(day), stoi(year), emsg);
 }
 
 // Read next token.

@@ -64,6 +64,9 @@ t	'Jan 54'						'1: col=7 msg=invalid day'
 
 t	'Jan 5, 1804'					'1: col=12 msg=invalid year'
 
+t	'9999/5/42'					'1: col=10 msg=invalid month'
+t	'12/0/2030'					'1: col=10 msg=invalid day'
+t	'12/10/99999999999999999999999999999999'	'1: col=39 msg=invalid year'
 
 
 echo ""

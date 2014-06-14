@@ -32,10 +32,10 @@ date_expr		::= date.
 date_range	::= date TO date.
 date_range	::= date DASH date.
 
-date			::= INT date_sep INT date_sep INT.
-date			::= MONTH(A) INT(B) INT(C).			{ chkdt2(A, B, C, emsg); }
-date			::= MONTH(A) INT(B) COMMA INT(C).	{ chkdt2(A, B, C, emsg); }
-date			::= MONTH(A) INT(B).				{ chkdt1(A, B, emsg); }
+date			::= INT(A) date_sep INT(B) date_sep INT(C).	{ chkdt3(A, B, C, emsg); }
+date			::= MONTH(A) INT(B) INT(C).				{ chkdt2(A, B, C, emsg); }
+date			::= MONTH(A) INT(B) COMMA INT(C).		{ chkdt2(A, B, C, emsg); }
+date			::= MONTH(A) INT(B).					{ chkdt1(A, B, emsg); }
 
 date_sep		::= DASH.
 date_sep		::= SLASH.
