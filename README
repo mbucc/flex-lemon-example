@@ -1,7 +1,7 @@
 lemon-example
 
 	An example of using a tokenizer and a grammar to validate date
-	expressions; for example, Jun 2, 3, and 6 at 10am and noon.
+	expressions; for example, "Jan 30 through Feb 15 at 8pm".
 
 	The tokenizer is plain-old C and a lemon grammar [0] is used to
 	generate the parser. 
