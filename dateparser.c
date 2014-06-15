@@ -1,9 +1,8 @@
 /* 
- * The tok method below is Copyright of Troy Hanson and was copied from 
- * https://github.com/troydhanson/misc/blob/master/text_handling/lemon/tok.c
- * I have contacted him asking if he will license his code with the same license.
  *
- * All the modifications to that method and the other code is:
+ * The tok method is Copyright (c) Troy D Hanson <tdh@tkhanson.net>
+ *
+ * The modifications to that method and the other code is:
  * 
  *  Copyright (c) June 2014 Mark Bucciarelli <mkbucc@gmail.com>. Amherst, MA.
  *  All rights reserved. 
