@@ -1,16 +1,18 @@
-lemon-parser-tutorial
+lemon-example
 
-	Lemon [0] is a yacc replacement that is written by the same author 
-	as SQLite. It's uses a simpler grammar than yacc, is thread-safe, 
-	and is designed to run inside long-running processes.
+	An example of using a tokenizer and a grammar to validate date
+	expressions; for example, Jun 2, 3, and 6 at 10am and noon.
+
+	The tokenizer is plain-old C and a lemon grammar [0] is used to
+	generate the parser. 
+
+	Lemon is written by the same author  as SQLite. It's benefis include
+	a simpler grammar than yacc, thread-safety, and a looser coupling
+	with the tokenizer.
     
-	This repo started from David Wheeler's C port [1] of a C++ lemon 
-	tutorial [2].
-
-	After much time spent trying to figure out error handling with lex,
-	I was very happy to find the tokenizer in Troy Hanson's lemon
-	example [3].  The one here is pretty much a verbatim copy.
-
+	This repository was started from David Wheeler's C port [1] of a 
+	C++ lemon tutorial [2].   The core of the tokenizer was copied 
+	pretty much verbatim from Troy Hanson's lemon example [3].
 
 	[0] http://www.hwaci.com/sw/lemon/
 	[1] https://github.com/bskari/lemon-parser-tutorial
@@ -20,24 +22,21 @@ lemon-parser-tutorial
 
 Status
 
-	The tokenizing works and I've made a good start on a test suite.
-
-	The date expressions are not checked for semantics; for example,
-	January 54 is considered a valid date.
-	
+	Functional.  See the files test_tokenizer.sh and test_isadate.sh
+	(in the regress directory) for examples of strings that are handled.
 
 Build
 
 	make
 
-		This currently builds an object file that provides the method
+		Builds an object file that provides the method
 
-				int isadate(const char *, int *);
+				int isadate(const char *, struct emsg *);
 
 		which returns 0 if the string is a date, and 1 otherwise.
 
-		If the string is not recognized as a date, the column at which 
-		the parsing stopped is put in the second argument.
+		If the string is not recognized as a date, the emsg struct is 
+		populated with an error message and a column index.
 
 
 Test
